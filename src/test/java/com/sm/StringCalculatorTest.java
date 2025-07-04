@@ -62,6 +62,14 @@ class StringCalculatorTest {
     }
 
     @Test
+    @DisplayName("Ignores numbers greater than 1000")
+    void shouldIgnoreNumbersGreaterThan1000() {
+        assertEquals(2, calculator.add("2,1001"));
+        assertEquals(1002, calculator.add("2,1000"));
+    }
+
+
+    @Test
     @DisplayName("Handles multiple-digit numbers")
     void shouldHandleMultipleDigitNumbers() {
         assertEquals(123, calculator.add("100,23"));

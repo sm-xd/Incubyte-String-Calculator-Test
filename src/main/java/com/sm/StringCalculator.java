@@ -18,7 +18,10 @@ public class StringCalculator {
         List<Integer> numbers = parseNumbers(parts);
         validateNoNegatives(numbers);
 
-        return numbers.stream().mapToInt(Integer::intValue).sum();
+        return numbers.stream()
+                .filter(n -> n <= 1000)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     private String getDelimiter(String input) {
