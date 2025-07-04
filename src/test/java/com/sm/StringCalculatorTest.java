@@ -18,4 +18,9 @@ public class StringCalculatorTest {
         assertEquals(5, new StringCalculator().add("5"));
     }
 
+    @Test
+    void shouldReturnSumOfTwoNumbers() {
+        assertEquals(9, new StringCalculator().add("4,5"));
+    }
+
 }
