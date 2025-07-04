@@ -68,6 +68,12 @@ class StringCalculatorTest {
         assertEquals(1002, calculator.add("2,1000"));
     }
 
+    @Test
+    @DisplayName("Supports delimiter of any length")
+    void shouldSupportMultiCharacterDelimiter() {
+        assertEquals(6, calculator.add("//[***]\n1***2***3"));
+    }
+
 
     @Test
     @DisplayName("Handles multiple-digit numbers")

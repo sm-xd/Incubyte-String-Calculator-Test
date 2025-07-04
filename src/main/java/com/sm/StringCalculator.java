@@ -11,30 +11,46 @@ public class StringCalculator {
     public int add(String input) {
         if (input.isEmpty()) return 0;
 
-        String delimiter = getDelimiter(input);
-        input = stripDelimiterDeclaration(input);
+        String numbers = stripDelimiterDeclaration(input);
+        List<String> delimiters = extractDelimiters(input);
 
-        String[] parts = input.split(delimiter);
-        List<Integer> numbers = parseNumbers(parts);
-        validateNoNegatives(numbers);
+        String delimiterRegex = String.join("|", delimiters);
+        String[] parts = numbers.split(delimiterRegex);
 
-        return numbers.stream()
+        List<Integer> numbersList = parseNumbers(parts);
+        validateNoNegatives(numbersList);
+
+        return numbersList.stream()
                 .filter(n -> n <= 1000)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    private String getDelimiter(String input) {
+    private List<String> extractDelimiters(String input) {
+        List<String> delimiters = new ArrayList<>();
+
         if (input.startsWith("//")) {
-            String delimiterDeclaration = input.split("\n", 2)[0].substring(2);
-            return Pattern.quote(delimiterDeclaration);
+            String header = input.substring(2, input.indexOf('\n'));
+
+            var matcher = Pattern.compile("\\[(.*?)]").matcher(header);
+            while (matcher.find()) {
+                delimiters.add(Pattern.quote(matcher.group(1)));
+            }
+
+            if (delimiters.isEmpty()) {
+                delimiters.add(Pattern.quote(header));
+            }
+        } else {
+            delimiters.add(Pattern.quote(","));
+            delimiters.add(Pattern.quote("\n"));
         }
-        return ",|\n";
+
+        return delimiters;
     }
 
     private String stripDelimiterDeclaration(String input) {
         if (input.startsWith("//")) {
-            return input.split("\n", 2)[1];
+            return input.substring(input.indexOf('\n') + 1);
         }
         return input;
     }
