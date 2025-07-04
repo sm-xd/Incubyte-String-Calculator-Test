@@ -3,6 +3,7 @@ package com.sm;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
 
@@ -36,6 +37,15 @@ public class StringCalculatorTest {
     @Test
     void shouldSupportCustomDelimiter() {
         assertEquals(3, new StringCalculator().add("//;\n1;2"));
+    }
+
+    @Test
+    void shouldThrowForNegativeNumbers() {
+        NegativeNumberException ex = assertThrows(NegativeNumberException.class, () -> {
+            new StringCalculator().add("1,-2,-3");
+        });
+
+        assertEquals("negative numbers not allowed: -2, -3", ex.getMessage());
     }
 
 
