@@ -23,4 +23,10 @@ public class StringCalculatorTest {
         assertEquals(9, new StringCalculator().add("4,5"));
     }
 
+    @Test
+    void shouldHandleMultipleNumbers() {
+        assertEquals(10, new StringCalculator().add("1,2,3,4"));
+    }
+
+
 }
