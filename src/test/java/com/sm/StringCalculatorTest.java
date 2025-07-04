@@ -74,6 +74,12 @@ class StringCalculatorTest {
         assertEquals(6, calculator.add("//[***]\n1***2***3"));
     }
 
+    @Test
+    @DisplayName("Supports multiple custom single-character delimiters")
+    void shouldSupportMultipleSingleCharDelimiters() {
+        assertEquals(6, calculator.add("//[*][%]\n1*2%3"));
+    }
+
 
     @Test
     @DisplayName("Handles multiple-digit numbers")
