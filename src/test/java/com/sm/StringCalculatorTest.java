@@ -1,5 +1,6 @@
 package com.sm;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorTest {
 
-    private final StringCalculator calculator = new StringCalculator();
+    private StringCalculator calculator;
+
+    @BeforeEach
+    void setUp() {
+        calculator = new StringCalculator();
+    }
+
 
     @Test
     @DisplayName("Returns 0 for empty string")
